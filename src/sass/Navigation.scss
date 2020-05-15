@@ -1,0 +1,133 @@
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+}
+
+.nav-title {
+
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    a {
+        position: absolute;
+        text-decoration: none;
+    }
+
+    h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-top: 50px;
+        background: #ff0000;
+        background: linear-gradient(
+            0deg,
+            #ff0000 0%,
+            #ff0000 20%,
+            #ffffff 35%,
+            #ffffff 38%,
+            #ff0000 55%,
+            #ff0000 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 100%; 
+        background-repeat: repeat;
+
+        div {
+            display: inline-block;
+            background-image: url(../icons/pokeball_color.png);
+            background-size: contain;
+            width: 27px;
+            height: 27px;
+        }
+    }
+
+    .nav-anime {
+        position: absolute;
+        top: 20px;
+        left: 140px;
+        background-image: url("https://media.giphy.com/media/l0HlLMeBgzK2UuHVS/source.gif");
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 120px;
+        height: 100px;
+        position: relative;
+        z-index: -10;
+    }
+}
+
+.nav-bar {
+
+    width: 100%;
+    background-color: #ffffff;
+    transition: all 0.1s ease-in-out;
+    height: 50px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+
+    nav {
+        display: flex;
+        justify-content: center;
+        ul {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
+.nav-item {
+    margin: auto 20px;
+    transition: all 0.5s ease-in-out;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #ff0000;
+    padding: 10px 20px;
+    position:relative;
+    z-index: 1;
+    transition: all .5s;
+
+    &::before {
+        transition: all .5s;
+    }
+
+    &:hover {
+        color: #ffffff;
+    }
+
+    &:after {
+        transition: all .5s;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        width: 100%;
+        height: 1px;
+        content: '.';
+        color: transparent;
+        background: #ff0000;
+        visibility: none;
+        opacity: 0;
+        z-index: -1;
+    }
+    
+    &:hover:after {
+        background-color: #ff0000;
+        opacity: 1;
+        visibility: visible;
+        height: 100%;
+    }
+}
+
+.selected {
+    background-color: #ff0000;
+    color: #FFF;
+}

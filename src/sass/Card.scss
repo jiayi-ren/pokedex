@@ -26,17 +26,23 @@ $fairy: #D685AD;
 
 .card-pokemon-img {
     max-width: 100%;
+    transition: all 0.5s;
+
+    &:hover {
+        transition: all 0.5s;
+        transform: scale(1.2);
+    }
 }
 
 .card-pokemon-info {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding: 0 30px;
+    width: 100% ;
+    padding: 0 1vw;
     text-align: left;
 
     h3 {
-        font-size: 1.5rem;
+        font-size: 2.5vw;
         text-transform: capitalize;
         margin: 10px 0;
     }
@@ -45,16 +51,17 @@ $fairy: #D685AD;
 .card-pokemon-type-container {
     display: flex;
     width: 100%;
-    padding: 0 30px;
+    padding: 0 1vw;
     text-align: left;
 }
 
 .card-pokemon-type {
-    padding: 5px 20px;
+    padding: 0.5vh 1vw;
     margin-right: 10px;
     width: 50px;
     text-align: center;
     text-transform: capitalize;
+    font-size: 1vw;
 }
 
 .normal {
