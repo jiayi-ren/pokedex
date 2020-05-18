@@ -1,26 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchPokemons, fetchPokemon } from '../store/actions';
 
 import Card from './Card';
 
+const url = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20"
+
 const CardContainer = props =>{
 
     const {
         isFetchingPokemons,
-        pokemons,
+        pokemons,   //individual pokemons url
         pokemonsFetchError,
         fetchPokemons,
         isFetchingPokemon,
-        pokemon,
+        pokemon,    //array of pokemon info
         pokemonFetchError,
         fetchPokemon,
     } = props
 
+    const numberOfPokemons = 20
+    const [offset, setOffset] = useState(0)
+    const [limit, setLimit] = useState(numberOfPokemons)
+
+    const [pageNumber, setPageNumber] = useState(1)
+
+    const [baseUrl, setBaseUrl] = useState(url)
+
     useEffect(()=>{
         console.log("!!!!!!!!!!POKEMONSSS")
-        fetchPokemons()
-    },[fetchPokemons])
+        fetchPokemons(baseUrl)
+    },[baseUrl, fetchPokemons])
 
     useEffect(() => {
         console.log("!!!!!!!!!!POKEMON");
@@ -29,18 +39,58 @@ const CardContainer = props =>{
         }
       }, [pokemons, fetchPokemon]);
 
+    const PreviousPage = event =>{
+        event.preventDefault()
+        console.log("clicked prev")
+        if(pageNumber > 1){
+            console.log("not first Page")
+            setPageNumber(pageNumber - 1)
+            setOffset(offset - numberOfPokemons)
+            setLimit(limit)
+            setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${offset - numberOfPokemons}&limit=${limit}`)
+        }
+    }
+
+    const NextPage = event =>{
+        event.preventDefault()
+        console.log("clicked next")
+        if(pageNumber < Math.floor(808/20)){
+            console.log("not first Page")
+            setPageNumber(pageNumber + +1)
+            setOffset(offset + numberOfPokemons)
+            setLimit(limit)
+            setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${offset + numberOfPokemons}&limit=${limit}`)
+        }
+    }
+
     return(
         <div className="pokedex">
-            {isFetchingPokemons && <p>Fetching Pokemon list...</p>}
+            {isFetchingPokemons && (
+                <>
+                <img src="https://media.giphy.com/media/GTuchZPRzR3s4/source.gif" alt="slowpoke"></img>
+                <p>Fetching Pokemon list...</p>
+                </>)}
             {!isFetchingPokemons && pokemonsFetchError && <p>{pokemonsFetchError}</p>}
-            {isFetchingPokemon && <p>Fetching Pokemons...</p>}
+            {isFetchingPokemon && (
+                <>
+                <img src="https://media.giphy.com/media/GTuchZPRzR3s4/source.gif" alt="slowpoke"></img>
+                <p>Fetching Pokemons...</p>
+                </>
+            )}
             {!isFetchingPokemon && !pokemonFetchError &&
-                (<div className="card-container">
-                    {pokemon.map( (pokemon, index) =>{
-                    return ( <Card key={index} data={pokemon}/> )
-                    })
-                }   
-                </div>)
+                (<>
+                    <button onClick={PreviousPage}>prev</button>
+                    <button onClick={NextPage}>next</button>
+                    <div className="card-container">
+                        {pokemon.map( (pokemon, index) =>{
+                            if(pokemon.id < 808){
+                                return ( <Card key={index} data={pokemon}/> )
+                            }
+                            return null
+                        })
+                    }   
+                    </div>
+                </>)
             }
         </div>
     )

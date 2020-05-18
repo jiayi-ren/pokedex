@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
@@ -11,21 +11,15 @@ import rootReducer from "./store/reducers";
 import './sass/index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Home from './components/Home';
-import Navigation from './components/Navigation';
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+const AppWithRouter = withRouter(App);
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Provider store={store}>
-
-
     <Router>
-      <Navigation />
-      <Route exact path="/pokemon" component={App}/>
-      <Route path="/" component={Home}></Route>
-
+      <AppWithRouter />
     </Router>
   </Provider>,
   rootElement
