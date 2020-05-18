@@ -7,8 +7,8 @@ const Card = props =>{
     const { data} = props
 
     const imgSrc = `https://pokeres.bastionbot.org/images/pokemon/${data.id}.png`
-    const imgAlt = `${data.name}'s Image`
-    const imgLink = `/${data.name}`
+    const imgAlt = `${data.name}`
+    const imgLink = `/pokemon/${data.name}`
     const id = String(data.id).padStart(3, '0')
 
     return(
@@ -19,9 +19,9 @@ const Card = props =>{
                 <h3>{data.name}</h3>
             </div>
             <div className="card-pokemon-type-container">
-                {data.types.map( type =>{
+                {data.types.map( (type,index) =>{
                     console.log(type)
-                    return <span className={type.type.name+ " card-pokemon-type"} >{type.type.name}</span>
+                    return <span key={index} className={type.type.name+ " card-pokemon-type"} >{type.type.name}</span>
                 })}
             </div>
         </div>

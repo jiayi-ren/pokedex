@@ -4,7 +4,7 @@ export const FETCH_POKEMONS_START = "FETCH_POKEMONS_START";
 export const FETCH_POKEMONS_SUCCESS = "FETCH_POKEMONS_SUCCESS";
 export const FETCH_POKEMONS_FAILURE = "FETCH_POKEMONS_FAILURE";
 
-export const fetchPokemons = () =>{
+export const fetchPokemons = url =>{
 
     console.log("FETCH POKEMON LIST")
 
@@ -12,7 +12,7 @@ export const fetchPokemons = () =>{
         dispatch({ type: FETCH_POKEMONS_START })
 
         axios
-            .get(`https://pokeapi.co/api/v2/pokemon/`)
+            .get(url)
             .then(res =>{
                 // console.log(res.data)
                 console.log("FETCH CONTAINER SUCCESS")
