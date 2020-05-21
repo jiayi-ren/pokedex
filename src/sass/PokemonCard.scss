@@ -12,15 +12,25 @@
 }
 
 .pokemon-img {
-    // width: 50%;
+    width: 50%;
+    // display: flex;
+    // justify-content: center;
 
-    figure img {
-        width: 300px;
+    figure {
+        // margin: auto;
+        display: flex;
+        justify-content: center;
+        
+        img{ 
+            width: 300px;
+            margin: 0 auto;
+        }
     }
 }
 
 .pokemon-basic-info {
     margin-left: 30px;
+    width: 50%;
 }
 
 .pokemon-name {
@@ -50,6 +60,7 @@
     flex-direction: row-reverse;
     height: 120px;
     margin-bottom: 5px;
+    justify-content: flex-end;
 }
 
 .pokemon-stat-bar {
@@ -62,6 +73,8 @@
 .pokemon-stats-tick {
     display: flex;
     flex-direction: row-reverse;
+    justify-content: flex-end;
+    margin: auto;
 }
 
 .pokemon-stat-tick {
