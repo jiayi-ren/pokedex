@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchPokemons, fetchPokemon } from '../store/actions';
 
-import Card from './Card';
+import PokedexCard from './PokedexCard';
 
 const url = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20"
 
@@ -24,6 +24,7 @@ const Pokedex = props =>{
     const [limit, setLimit] = useState(numberOfPokemons)
 
     const [pageNumber, setPageNumber] = useState(1)
+    const [pageError, setPageError] = useState("")
 
     const [baseUrl, setBaseUrl] = useState(url)
 
@@ -44,10 +45,13 @@ const Pokedex = props =>{
         console.log("clicked prev")
         if(pageNumber > 1){
             console.log("not first Page")
+            setPageError("")
             setPageNumber(pageNumber - 1)
             setOffset(offset - numberOfPokemons)
             setLimit(limit)
             setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${offset - numberOfPokemons}&limit=${limit}`)
+        }else{
+            setPageError("This is the First Page")
         }
     }
 
@@ -56,10 +60,13 @@ const Pokedex = props =>{
         console.log("clicked next")
         if(pageNumber < Math.floor(808/20)){
             console.log("not first Page")
+            setPageError("")
             setPageNumber(pageNumber + +1)
             setOffset(offset + numberOfPokemons)
             setLimit(limit)
             setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${offset + numberOfPokemons}&limit=${limit}`)
+        }else{
+            setPageError("This is the Last Page")
         }
     }
 
@@ -79,19 +86,19 @@ const Pokedex = props =>{
             )}
             {!isFetchingPokemon && !pokemonFetchError &&
                 (<>
-                    <button onClick={PreviousPage}>prev</button>
-                    <button onClick={NextPage}>next</button>
+                    <h3>{pageError}</h3>
+                    <button className="arrow-left" onClick={PreviousPage}></button>
+                    <button className="arrow-right"onClick={NextPage}></button>
                     <div className="card-container">
                         {pokemon.map( (pokemon, index) =>{
                             if(pokemon.id < 808){
-                                return ( <Card key={index} data={pokemon}/> )
+                                return ( <PokedexCard key={index} data={pokemon}/> )
                             }
                             return null
                         })
                     }   
                     </div>
-                    <button onClick={PreviousPage}>prev</button>
-                    <button onClick={NextPage}>next</button>
+                    <h3>{pageError}</h3>
                 </>)
             }
         </div>

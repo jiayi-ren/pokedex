@@ -7,5 +7,31 @@
     display: flex;
     flex-wrap: wrap;
     max-width: 100%;
-    margin-top: 10px;
+    margin: 10px 0;
+}
+
+.arrow-left {
+    border: solid black;
+    background-color: #ffffff;
+    border-width: 0 10px 10px 0;
+    display: inline-block;
+    padding: 10px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    position: fixed;
+    top: 50%;
+    left: 5%;
+}
+
+.arrow-right {
+    border: solid black;
+    background-color: #ffffff;
+    border-width: 0 10px 10px 0;
+    display: inline-block;
+    padding: 10px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    position: fixed;
+    top: 50%;
+    right: 5%;
 }
