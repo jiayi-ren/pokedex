@@ -61,13 +61,14 @@
 .nav-bar {
 
     width: 100%;
-    background-color: #ffffff;
+    background-color: #000000;
     transition: all 0.1s ease-in-out;
     height: 50px;
     z-index: 1;
     display: flex;
     justify-content: center;
     margin: 20px 0;
+    padding: 10px 0;
 
     nav {
         display: flex;

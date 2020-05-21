@@ -6,7 +6,7 @@ import Card from './Card';
 
 const url = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20"
 
-const CardContainer = props =>{
+const Pokedex = props =>{
 
     const {
         isFetchingPokemons,
@@ -90,6 +90,8 @@ const CardContainer = props =>{
                         })
                     }   
                     </div>
+                    <button onClick={PreviousPage}>prev</button>
+                    <button onClick={NextPage}>next</button>
                 </>)
             }
         </div>
@@ -111,4 +113,4 @@ const mapStateToProps = state =>{
 export default connect(
     mapStateToProps,
     { fetchPokemons, fetchPokemon }
-)(CardContainer);
+)(Pokedex);

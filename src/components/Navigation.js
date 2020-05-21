@@ -4,38 +4,55 @@ import { NavLink } from "react-router-dom";
 const Navigation = props =>{
 
     window.onscroll = function() {scrollFunction()};
+    
+    const getElements = () =>{
+        const navBar = document.querySelector(".nav-bar")
+        const navItem = document.querySelectorAll(".nav-item")
+
+        return [navBar, navItem]
+    }
+
+
+    const ScrollNav = () =>{
+        const [navBar, navItem] = getElements()
+        navBar.style.position = "fixed"
+        navBar.style.top = "0"
+        navBar.style.height = "50px"
+        navBar.style.margin = "0"
+        navItem[0].style.position = "fixed"
+        navItem[0].style.top = "18px"
+        navItem[0].style.left = "65vw"
+        navItem[1].style.position = "fixed"
+        navItem[1].style.top = "18px"
+        navItem[1].style.left = "80vw"
+    }
+
+    const StaticNav = () =>{
+        const [navBar, navItem] = getElements()
+        navBar.style.position = "static"
+        navBar.style.top = "0"
+        navBar.style.height = "50px"
+        navBar.style.margin = "20px 0"
+        navItem[0].style.position = "static"
+        navItem[0].style.top = "0"
+        navItem[0].style.left = "0"
+        navItem[1].style.position = "static"
+        navItem[1].style.top = "0"
+        navItem[1].style.left = "0"
+    }
 
     function scrollFunction() {
         console.log(window.innerWidth)
-        const scroll = document.documentElement.scrollTop
-        const navBar = document.querySelector(".nav-bar")
-        const navItem = document.querySelectorAll(".nav-item")
         if(window.innerWidth >= 1100){
+            const scroll = document.documentElement.scrollTop
+            console.log(scroll)
             if(scroll > 100){
-                navBar.style.position = "fixed"
-                navBar.style.top = "0"
-                navBar.style.backgroundColor = "#000000"
-                navBar.style.height = "50px"
-                navBar.style.margin = "0"
-                navItem[0].style.position = "fixed"
-                navItem[0].style.top = "18px"
-                navItem[0].style.left = "65vw"
-                navItem[1].style.position = "fixed"
-                navItem[1].style.top = "18px"
-                navItem[1].style.left = "80vw"
+                ScrollNav()
             }else{
-                navBar.style.position = "static"
-                navBar.style.top = "0"
-                navBar.style.height = "50px"
-                navBar.style.margin = "20px 0"
-                navBar.style.backgroundColor = "#ffffff"
-                navItem[0].style.position = "static"
-                navItem[0].style.top = "0"
-                navItem[0].style.left = "0"
-                navItem[1].style.position = "static"
-                navItem[1].style.top = "0"
-                navItem[1].style.left = "0"
+                StaticNav()
             }
+        }else{
+            StaticNav()
         }  
     }
 
