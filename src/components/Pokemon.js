@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchPokemon } from '../store/actions';
+import PokemonCard from './PokemonCard';
 
 const Pokemon = props =>{
 
@@ -35,10 +36,7 @@ const Pokemon = props =>{
                 (<>
                     {pokemon.map( pokemon =>{
                         return (
-                            <div className="pokemon-container" key={pokemon.id}>
-                                <figure><img className="pokemon-img" src={`https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png`} alt={`${pokemon.name}`}></img></figure>
-                            <h2 className="pokemon-name">{pokemon.name}</h2>
-                            </div>
+                            <PokemonCard key={pokemon.id} pokemon={pokemon}/>
                         )
                     })
                 }   

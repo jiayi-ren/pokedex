@@ -12,7 +12,6 @@ const Navigation = props =>{
         return [navBar, navItem]
     }
 
-
     const ScrollNav = () =>{
         const [navBar, navItem] = getElements()
         navBar.style.position = "fixed"
@@ -42,10 +41,10 @@ const Navigation = props =>{
     }
 
     function scrollFunction() {
-        console.log(window.innerWidth)
+        // console.log(window.innerWidth)
         if(window.innerWidth >= 1100){
             const scroll = document.documentElement.scrollTop
-            console.log(scroll)
+            // console.log(scroll)
             if(scroll > 100){
                 ScrollNav()
             }else{
