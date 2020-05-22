@@ -24,7 +24,6 @@ const Pokedex = props =>{
     const [limit, setLimit] = useState(numberOfPokemons)
 
     const [pageNumber, setPageNumber] = useState(1)
-    const [pageError, setPageError] = useState("")
 
     const [baseUrl, setBaseUrl] = useState(url)
 
@@ -45,28 +44,22 @@ const Pokedex = props =>{
         console.log("clicked prev")
         if(pageNumber > 1){
             console.log("not first Page")
-            setPageError("")
             setPageNumber(pageNumber - 1)
             setOffset(offset - numberOfPokemons)
             setLimit(limit)
             setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${offset - numberOfPokemons}&limit=${limit}`)
-        }else{
-            setPageError("This is the First Page")
         }
     }
 
     const NextPage = event =>{
         event.preventDefault()
         console.log("clicked next")
-        if(pageNumber < Math.floor(808/20)){
-            console.log("not first Page")
-            setPageError("")
+        if(pageNumber < Math.ceil(808/20)){
+            console.log("not last Page")
             setPageNumber(pageNumber + +1)
             setOffset(offset + numberOfPokemons)
             setLimit(limit)
             setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${offset + numberOfPokemons}&limit=${limit}`)
-        }else{
-            setPageError("This is the Last Page")
         }
     }
 
@@ -86,9 +79,8 @@ const Pokedex = props =>{
             )}
             {!isFetchingPokemon && !pokemonFetchError &&
                 (<>
-                    <h3>{pageError}</h3>
-                    <button className="arrow-left" onClick={PreviousPage}></button>
-                    <button className="arrow-right"onClick={NextPage}></button>
+                    {pageNumber !== 1 && <button className="arrow-left" onClick={PreviousPage}></button>}
+                    {pageNumber !== Math.ceil(808/20) && <button className="arrow-right"onClick={NextPage}></button>}
                     <div className="card-container">
                         {pokemon.map( (pokemon, index) =>{
                             if(pokemon.id < 808){
@@ -98,7 +90,6 @@ const Pokedex = props =>{
                         })
                     }   
                     </div>
-                    <h3>{pageError}</h3>
                 </>)
             }
         </div>
