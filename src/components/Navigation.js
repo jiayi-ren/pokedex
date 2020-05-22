@@ -1,7 +1,11 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 
 const Navigation = props =>{
+
+    let location = useLocation()
+    // console.log(location)
 
     window.onscroll = function() {scrollFunction()};
     
@@ -42,24 +46,27 @@ const Navigation = props =>{
 
     function scrollFunction() {
         // console.log(window.innerWidth)
-        if(window.innerWidth >= 1100){
-            const scroll = document.documentElement.scrollTop
-            // console.log(scroll)
-            if(scroll > 100){
-                ScrollNav()
+
+        if(location.pathname !== "/"){
+            if(window.innerWidth >= 1100){
+                const scroll = document.documentElement.scrollTop
+                console.log(scroll)
+                if(scroll > 100){
+                    ScrollNav()
+                }else{
+                    StaticNav()
+                }
             }else{
                 StaticNav()
-            }
-        }else{
-            StaticNav()
-        }  
+            }  
+        }
     }
 
     return (
         <div className="nav">
             <div className="nav-title">
                 <a href="/"><h1>P<div className="nav-pokeball"></div>kédex</h1></a>
-                <div className="nav-anime"></div>
+                <div className="nav-anime"></div> {/*title pokemon gif*/}
             </div>
             <div className="nav-bar">
                 <nav>
