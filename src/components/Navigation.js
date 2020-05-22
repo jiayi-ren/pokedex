@@ -35,7 +35,7 @@ const Navigation = props =>{
         navBar.style.position = "static"
         navBar.style.top = "0"
         navBar.style.height = "50px"
-        navBar.style.margin = "20px 0"
+        navBar.style.marginTop = "20px"
         navItem[0].style.position = "static"
         navItem[0].style.top = "0"
         navItem[0].style.left = "0"
