@@ -1,16 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Images } from '../images/Images';
 
 const PokemonCard = props =>{
-
+    
     const { pokemon } = props
 
     console.log(pokemon)
 
+    const [selectedOption, setSelectedOption] = useState(1)
+    const [imgName, setImgName] = useState("")
+
+    const exceptionIdForms = [412,413,421,487,492,585,586,641,642,647,648,718,719,720,741,745,746,774,778,719]
+    const isException = exceptionIdForms.includes(pokemon.id)
+
+    useEffect(()=>{
+        const imgId = `image${pokemon.id}_f${selectedOption}`
+        setImgName(imgId)
+    },[selectedOption])
+
+    const handleSelectChange = event =>{
+        const value = parseInt(event.target.value)
+        setSelectedOption(value)
+    }
+
+    const imgSrc = isException? Images[imgName]:`https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png`
+
     return(
         <div className="pokemon-container" key={pokemon.id}>
+            {isException && (
+                    <select value={selectedOption} onChange={handleSelectChange}>
+                    {pokemon.forms.map( (form,index) =>{
+                        return(
+                            <option key={index} value={index +1}>{form.name}</option>
+                        )
+                    })}
+                </select>
+                )}
             <div className="pokemon-info">
                 <div className="pokemon-img">
-                    <figure><img src={`https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png`} alt={`${pokemon.name}`}></img></figure>
+                    {isException && (
+                        <figure><img src={imgSrc} alt={`${pokemon.name}`}></img></figure>
+                    )}
+                    {!isException && (
+                        <figure><img src={imgSrc} alt={`${pokemon.name}`}></img></figure>
+                    )}
                 </div>
                 <div className="pokemon-basic-info">
                     <h2 className="pokemon-name">{pokemon.name} &nbsp; #{String(pokemon.id).padStart(3, '0')}</h2>

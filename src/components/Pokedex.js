@@ -24,7 +24,8 @@ const Pokedex = props =>{
     const [limit, setLimit] = useState(numberOfPokemons)
 
     const [pageNumber, setPageNumber] = useState(1)
-    const [pageError, setPageError] = useState("")
+    const [searchByPokemonID, setSearchByPokemonID] = useState("")
+    const [search, setSearch] = useState(false)
 
     const [baseUrl, setBaseUrl] = useState(url)
 
@@ -35,43 +36,66 @@ const Pokedex = props =>{
 
     useEffect(() => {
         console.log("!!!!!!!!!!POKEMON");
-        if (pokemons) {
-          fetchPokemon(pokemons);
+        if (pokemons && !search && !searchByPokemonID) {
+            fetchPokemon(pokemons);
         }
-      }, [pokemons, fetchPokemon]);
+        if (search && searchByPokemonID) {
+            fetchPokemon([`https://pokeapi.co/api/v2/pokemon/${searchByPokemonID}`])
+            setSearch(false)
+        }
+      }, [pokemons, fetchPokemon, search , searchByPokemonID]);
 
     const PreviousPage = event =>{
         event.preventDefault()
         console.log("clicked prev")
         if(pageNumber > 1){
             console.log("not first Page")
-            setPageError("")
             setPageNumber(pageNumber - 1)
             setOffset(offset - numberOfPokemons)
             setLimit(limit)
             setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${offset - numberOfPokemons}&limit=${limit}`)
-        }else{
-            setPageError("This is the First Page")
         }
     }
 
     const NextPage = event =>{
         event.preventDefault()
         console.log("clicked next")
-        if(pageNumber < Math.floor(808/20)){
-            console.log("not first Page")
-            setPageError("")
+        if(pageNumber < Math.ceil(808/20)){
+            console.log("not last Page")
             setPageNumber(pageNumber + +1)
             setOffset(offset + numberOfPokemons)
             setLimit(limit)
             setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${offset + numberOfPokemons}&limit=${limit}`)
+        }
+    }
+
+    const handleChangeSearch = event =>{
+        const value = event.target.value? event.target.value:""
+        setSearchByPokemonID(value)
+    }
+
+    const handleSubmitSearch = event =>{
+        event.preventDefault()
+        console.log("HERE")
+        if(searchByPokemonID === ""){
+            setSearch(false)
         }else{
-            setPageError("This is the Last Page")
+            setSearch(true)
         }
     }
 
     return(
         <div className="pokedex">
+            <form onSubmit={handleSubmitSearch}>
+                <input 
+                    name="searchPokemon"
+                    value={searchByPokemonID}
+                    type="text"
+                    placeholder="Search by Poke Number"
+                    onChange={handleChangeSearch}
+                />
+                <button>Search</button>
+            </form>
             {isFetchingPokemons && (
                 <>
                 <img src="https://media.giphy.com/media/GTuchZPRzR3s4/source.gif" alt="slowpoke"></img>
@@ -86,9 +110,8 @@ const Pokedex = props =>{
             )}
             {!isFetchingPokemon && !pokemonFetchError &&
                 (<>
-                    <h3>{pageError}</h3>
-                    <button className="arrow-left" onClick={PreviousPage}></button>
-                    <button className="arrow-right"onClick={NextPage}></button>
+                    {pageNumber !== 1 && <button className="arrow-left" onClick={PreviousPage}></button>}
+                    {pageNumber !== Math.ceil(808/20) && <button className="arrow-right"onClick={NextPage}></button>}
                     <div className="card-container">
                         {pokemon.map( (pokemon, index) =>{
                             if(pokemon.id < 808){
@@ -98,7 +121,6 @@ const Pokedex = props =>{
                         })
                     }   
                     </div>
-                    <h3>{pageError}</h3>
                 </>)
             }
         </div>
