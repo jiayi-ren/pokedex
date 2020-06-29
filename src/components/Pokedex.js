@@ -24,6 +24,8 @@ const Pokedex = props =>{
     const [limit, setLimit] = useState(numberOfPokemons)
 
     const [pageNumber, setPageNumber] = useState(1)
+    const [searchByPokemonID, setSearchByPokemonID] = useState("")
+    const [search, setSearch] = useState(false)
 
     const [baseUrl, setBaseUrl] = useState(url)
 
@@ -34,10 +36,14 @@ const Pokedex = props =>{
 
     useEffect(() => {
         console.log("!!!!!!!!!!POKEMON");
-        if (pokemons) {
-          fetchPokemon(pokemons);
+        if (pokemons && !search && !searchByPokemonID) {
+            fetchPokemon(pokemons);
         }
-      }, [pokemons, fetchPokemon]);
+        if (search && searchByPokemonID) {
+            fetchPokemon([`https://pokeapi.co/api/v2/pokemon/${searchByPokemonID}`])
+            setSearch(false)
+        }
+      }, [pokemons, fetchPokemon, search , searchByPokemonID]);
 
     const PreviousPage = event =>{
         event.preventDefault()
@@ -63,8 +69,33 @@ const Pokedex = props =>{
         }
     }
 
+    const handleChangeSearch = event =>{
+        const value = event.target.value? event.target.value:""
+        setSearchByPokemonID(value)
+    }
+
+    const handleSubmitSearch = event =>{
+        event.preventDefault()
+        console.log("HERE")
+        if(searchByPokemonID === ""){
+            setSearch(false)
+        }else{
+            setSearch(true)
+        }
+    }
+
     return(
         <div className="pokedex">
+            <form onSubmit={handleSubmitSearch}>
+                <input 
+                    name="searchPokemon"
+                    value={searchByPokemonID}
+                    type="text"
+                    placeholder="Search by Poke Number"
+                    onChange={handleChangeSearch}
+                />
+                <button>Search</button>
+            </form>
             {isFetchingPokemons && (
                 <>
                 <img src="https://media.giphy.com/media/GTuchZPRzR3s4/source.gif" alt="slowpoke"></img>
