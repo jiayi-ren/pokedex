@@ -6,7 +6,7 @@ import PokemonCard from './PokemonCard';
 
 const Pokemon = props =>{
 
-    const { name } = useParams('/pokemon/:name')
+    const { name } = useParams('/pokemon/name/:name')
     const {
         isFetchingPokemon,
         pokemon,
@@ -14,10 +14,8 @@ const Pokemon = props =>{
         fetchPokemon,
     } = props
 
-    console.log()
-
     useEffect(() => {
-        console.log("!!!!!!!!!!POKEMON");
+        // console.log("!!!!!!!!!!POKEMON");
         if (name) {
           fetchPokemon([`https://cors-anywhere.herokuapp.com/https://pokeapi.co/api/v2/pokemon/${name}`]);
         }
@@ -51,7 +49,7 @@ const mapStateToProps = state =>{
     return {
         isFetchingPokemon: state.pokemon.isFetchingPokemon,
         pokemon: state.pokemon.pokemon,
-        pokemonFetchError: state.pokemon.pokemonsFetchError,
+        pokemonFetchError: state.pokemon.pokemonFetchError,
     };
 }
 export default connect(

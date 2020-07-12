@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchPokemons, fetchPokemon } from '../store/actions';
+import { useHistory } from 'react-router';
 
 import PokedexCard from './PokedexCard';
-
-const url = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20"
+import PokedexSearchBar from './PokedexSearchBar';
 
 const Pokedex = props =>{
 
@@ -19,83 +19,66 @@ const Pokedex = props =>{
         fetchPokemon,
     } = props
 
-    const numberOfPokemons = 20
-    const [offset, setOffset] = useState(0)
-    const [limit, setLimit] = useState(numberOfPokemons)
+    const [pageNumber, setPageNumber] = useState(parseInt(1))
 
-    const [pageNumber, setPageNumber] = useState(1)
-    const [searchByPokemonID, setSearchByPokemonID] = useState("")
-    const [search, setSearch] = useState(false)
+    const history = useHistory()
+    
+    const numberOfPokemon = 20
+    const [offset, setOffset] = useState(numberOfPokemon * (pageNumber-1))
+    const [limit, setLimit] = useState(numberOfPokemon)
 
-    const [baseUrl, setBaseUrl] = useState(url)
+    const [baseUrl, setBaseUrl] = useState(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`)
 
     useEffect(()=>{
-        console.log("!!!!!!!!!!POKEMONSSS")
+        return history.listen((location)=>{
+            const newPage = parseInt(location.pathname[location.pathname.length-1])
+            setPageNumber(newPage)
+            setOffset(numberOfPokemon * (newPage-1))
+            setLimit(numberOfPokemon)
+            setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${numberOfPokemon * (newPage-1)}&limit=${numberOfPokemon}`)
+        })
+    },[history, limit, offset, pageNumber])
+
+    useEffect(()=>{
+        // console.log("!!!!!!!!!!POKEMONSSS")
         fetchPokemons(baseUrl)
-    },[baseUrl, fetchPokemons])
+    },[baseUrl, fetchPokemons, pageNumber])
 
     useEffect(() => {
-        console.log("!!!!!!!!!!POKEMON");
-        if (pokemons && !search && !searchByPokemonID) {
+        // console.log("!!!!!!!!!!POKEMON");
+        // if (pokemons && !search && !searchByPokemonID) {
             fetchPokemon(pokemons);
-        }
-        if (search && searchByPokemonID) {
-            fetchPokemon([`https://pokeapi.co/api/v2/pokemon/${searchByPokemonID}`])
-            setSearch(false)
-        }
-      }, [pokemons, fetchPokemon, search , searchByPokemonID]);
+        // }
+        // if (search && searchByPokemonID) {
+            // fetchPokemon([`https://pokeapi.co/api/v2/pokemon/${searchByPokemonID}`])
+            // setSearch(true)
+        // }
+      },[pokemons, fetchPokemon]);
 
-    const PreviousPage = event =>{
+    const previousPage = event =>{
         event.preventDefault()
         console.log("clicked prev")
-        if(pageNumber > 1){
+        if( pageNumber > 1){
             console.log("not first Page")
-            setPageNumber(pageNumber - 1)
-            setOffset(offset - numberOfPokemons)
-            setLimit(limit)
-            setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${offset - numberOfPokemons}&limit=${limit}`)
+            const newPage = pageNumber - 1
+            history.push(`/pokemon/page/${newPage}`)
+            
         }
     }
 
-    const NextPage = event =>{
+    const nextPage = event =>{
         event.preventDefault()
         console.log("clicked next")
         if(pageNumber < Math.ceil(808/20)){
             console.log("not last Page")
-            setPageNumber(pageNumber + +1)
-            setOffset(offset + numberOfPokemons)
-            setLimit(limit)
-            setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${offset + numberOfPokemons}&limit=${limit}`)
-        }
-    }
-
-    const handleChangeSearch = event =>{
-        const value = event.target.value? event.target.value:""
-        setSearchByPokemonID(value)
-    }
-
-    const handleSubmitSearch = event =>{
-        event.preventDefault()
-        console.log("HERE")
-        if(searchByPokemonID === ""){
-            setSearch(false)
-        }else{
-            setSearch(true)
+            const newPage = pageNumber + 1
+            history.push(`/pokemon/page/${newPage}`)
         }
     }
 
     return(
         <div className="pokedex">
-            <form onSubmit={handleSubmitSearch}>
-                <input 
-                    name="searchPokemon"
-                    value={searchByPokemonID}
-                    type="text"
-                    placeholder="Search by Poke Number"
-                    onChange={handleChangeSearch}
-                />
-                <button>Search</button>
-            </form>
+            <PokedexSearchBar/>
             {isFetchingPokemons && (
                 <>
                 <img src="https://media.giphy.com/media/GTuchZPRzR3s4/source.gif" alt="slowpoke"></img>
@@ -110,8 +93,12 @@ const Pokedex = props =>{
             )}
             {!isFetchingPokemon && !pokemonFetchError &&
                 (<>
-                    {pageNumber !== 1 && <button className="arrow-left" onClick={PreviousPage}></button>}
-                    {pageNumber !== Math.ceil(808/20) && <button className="arrow-right"onClick={NextPage}></button>}
+                    {pageNumber !== 1 && <button className="arrow-left" onClick={previousPage}></button>}
+                    {pageNumber !== Math.ceil(808/20) && <button className="arrow-right"onClick={nextPage}></button>}
+                </>)
+            }
+            {!isFetchingPokemon && !pokemonFetchError &&
+                (<>
                     <div className="card-container">
                         {pokemon.map( (pokemon, index) =>{
                             if(pokemon.id < 808){
@@ -128,14 +115,13 @@ const Pokedex = props =>{
 }
 
 const mapStateToProps = state =>{
-    // console.log("Container ", state);
     return {
         isFetchingPokemons: state.pokemons.isFetchingPokemons,
         pokemons: state.pokemons.pokemons,
         pokemonsFetchError: state.pokemons.pokemonsFetchError,
         isFetchingPokemon: state.pokemon.isFetchingPokemon,
         pokemon: state.pokemon.pokemon,
-        pokemonFetchError: state.pokemon.pokemonsFetchError,
+        pokemonFetchError: state.pokemon.pokemonFetchError,
     };
 }
 

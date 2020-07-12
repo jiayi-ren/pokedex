@@ -50,7 +50,7 @@ const Navigation = props =>{
         if(location.pathname !== "/"){
             if(window.innerWidth >= 1100){
                 const scroll = document.documentElement.scrollTop
-                console.log(scroll)
+                // console.log(scroll)
                 if(scroll > 100){
                     ScrollNav()
                 }else{
@@ -71,7 +71,8 @@ const Navigation = props =>{
             <div className="nav-bar">
                 <nav>
                     <ul>
-                        <li className="nav-item"><NavLink className="nav-link" to="/pokemon" activeClassName="selected">Pokémon</NavLink></li>
+                        {/* <li className="nav-item"><NavLink className="nav-link" to="/" activeClassName="selected">Home</NavLink></li> */}
+                        <li className="nav-item"><NavLink className="nav-link" to="/pokemon/page/1" activeClassName="selected">Pokémon</NavLink></li>
                         <li className="nav-item"><NavLink className="nav-link" to="/games" activeClassName="selected">Games</NavLink></li>
                     </ul>
                 </nav>

@@ -6,7 +6,7 @@ export const FETCH_POKEMONS_FAILURE = "FETCH_POKEMONS_FAILURE";
 
 export const fetchPokemons = url =>{
 
-    console.log("FETCH POKEMON LIST")
+    // console.log("FETCH POKEMON LIST")
 
     return dispatch => {
         dispatch({ type: FETCH_POKEMONS_START })
@@ -15,7 +15,7 @@ export const fetchPokemons = url =>{
             .get(url)
             .then(res =>{
                 // console.log(res.data)
-                console.log("FETCH CONTAINER SUCCESS")
+                // console.log("FETCH CONTAINER SUCCESS")
                 dispatch({type: FETCH_POKEMONS_SUCCESS, payload: res.data.results})
             })
             .catch(err =>{
@@ -47,7 +47,7 @@ export const fetchPokemon = urls =>{
                 const data = responses.map( response =>{
                     return response.data
                 })
-                console.log("FETCH CARD SUCCESS")
+                // console.log("FETCH CARD SUCCESS")
                 // console.log(data)
                 dispatch({type: FETCH_POKEMON_SUCCESS, payload: data})
             }))

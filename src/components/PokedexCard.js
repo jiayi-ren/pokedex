@@ -13,7 +13,7 @@ const PokedexCard = props =>{
     const imgId = `image${data.id}_f1`
     const imgSrc = isException? Images[imgId]:`https://pokeres.bastionbot.org/images/pokemon/${data.id}.png`
     const imgAlt = `${data.name}`
-    const imgLink = `/pokemon/${data.name}`
+    const imgLink = `/pokemon/name/${data.name}`
     const id = String(data.id).padStart(3, '0')
 
   
