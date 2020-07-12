@@ -12,7 +12,7 @@ import './sass/index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+const store = createStore(rootReducer, applyMiddleware(thunk));
 const AppWithRouter = withRouter(App);
 
 const rootElement = document.getElementById("root");

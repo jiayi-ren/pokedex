@@ -10,13 +10,13 @@ const PokemonCard = props =>{
     const [selectedOption, setSelectedOption] = useState(1)
     const [imgName, setImgName] = useState("")
 
-    const exceptionIdForms = [412,413,421,487,492,585,586,641,642,647,648,718,719,720,741,745,746,774,778,719]
+    const exceptionIdForms = [412,413,421,487,492,585,586,641,642,647,648,718,719,720,741,745,746,774,778]
     const isException = exceptionIdForms.includes(pokemon.id)
 
     useEffect(()=>{
         const imgId = `image${pokemon.id}_f${selectedOption}`
         setImgName(imgId)
-    },[selectedOption])
+    },[selectedOption, pokemon.id])
 
     const handleSelectChange = event =>{
         const value = parseInt(event.target.value)
@@ -73,6 +73,9 @@ const PokemonCard = props =>{
                                 return <span key={index} className="pokemon-stat-tick">{stat.stat.name}</span>
                             })}
                         </div>
+                    </div>
+                    <div >
+                        {/* <PokemonCardEvo id={pokemon.id} /> */}
                     </div>
                 </div>
             </div>          
