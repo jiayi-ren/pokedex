@@ -3,8 +3,8 @@ import { Route } from 'react-router-dom';
 
 import Pokedex from './components/Pokedex';
 import PokedexSearch from './components/PokedexSearch';
-import Home from './components/Home';
-import Navigation from './components/Navigation';
+// import Home from './components/Home';
+// import Navigation from './components/Navigation';
 import Pokemon from './components/Pokemon';
 import Footer from './components/Footer';
 import './App.css';
@@ -12,13 +12,16 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-
-          <Navigation />
-          <Route exact path="/pokemon/name/:name" component={Pokemon}></Route>
-          <Route exact path="/pokemon/page/:page" component={Pokedex}></Route>
-          <Route exact path="/pokemon/search" component={PokedexSearch}></Route>
-          <Route exact path="/" component={Home}></Route>
-          <Footer />
+      <div className="nav-title">
+        <a href="/"><h1>P<div className="nav-pokeball"></div>kédex</h1></a>
+        <div className="nav-anime"></div> {/*title pokemon gif*/}
+      </div>
+      {/* <Navigation /> */}
+      <Route exact path="/pokemon/name/:name" component={Pokemon}></Route>
+      <Route exact path="/pokemon/page/:page" component={Pokedex}></Route>
+      <Route exact path="/pokemon/search" component={PokedexSearch}></Route>
+      <Route exact path="/" component={Pokedex}></Route>
+      <Footer />
     </div>
   );
 }

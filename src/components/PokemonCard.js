@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Images } from '../images/Images';
+import PokemonEvo from './PokemonEvo';
 
 const PokemonCard = props =>{
     
@@ -74,10 +75,8 @@ const PokemonCard = props =>{
                             })}
                         </div>
                     </div>
-                    <div >
-                        {/* <PokemonCardEvo id={pokemon.id} /> */}
-                    </div>
                 </div>
+                <PokemonEvo pokemon={pokemon} />
             </div>          
         </div>
     )

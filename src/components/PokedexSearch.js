@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchPokemon } from '../store/actions';
@@ -19,7 +19,7 @@ const PokedexSearch = props =>{
     
     useEffect(()=>{
         fetchPokemon([`https://pokeapi.co/api/v2/pokemon/${history.location.search.slice(8, history.location.search.length)}`])
-    },[])
+    },[fetchPokemon, history.location.search])
 
     useEffect(()=>{
         return history.listen((location)=>{
