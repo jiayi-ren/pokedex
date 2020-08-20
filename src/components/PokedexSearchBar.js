@@ -13,7 +13,7 @@ const PokedexSearchBar = props =>{
 
     const handleSubmitSearch = event =>{
         event.preventDefault()
-        if (searchByPokemonID != ""){
+        if (searchByPokemonID !== ""){
             history.push(`/pokemon/search?search=${searchByPokemonID}`)
         }else{
             history.push("/pokemon/page/1")
