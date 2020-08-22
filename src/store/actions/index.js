@@ -65,9 +65,7 @@ export const FETCH_EVOLUTION_FAILURE = "FETCH_EVOLUTION_FAILURE"
 
 export const fetchEvolution = url =>{
     console.log("FETCH EVO")
-
-
-
+    
     return dispatch => {
         dispatch({type: FETCH_EVOLUTION_START})
         axios

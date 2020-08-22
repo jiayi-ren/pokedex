@@ -88,3 +88,33 @@
     text-transform: capitalize;
     margin-right: 15px;
 }
+
+.pokemon-evolution {
+    margin: 20px 0;
+    height: 180px;
+}
+
+.pokemon-evolution-container {
+    display: flex;
+    justify-content: center;
+    // margin: auto;
+
+    .pokemon-evo-single {
+        width: 25%;
+        display: flex;
+
+        span {
+            width: 25%;
+            margin: auto 5%;
+            font-size: 3rem;
+        }
+    }
+}
+
+.pokemon-evo-img {
+    width: 70%;
+
+    figure img {
+        max-width: 100%;
+    }
+}

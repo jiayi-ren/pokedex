@@ -76,8 +76,8 @@ const PokemonCard = props =>{
                         </div>
                     </div>
                 </div>
-                <PokemonEvo pokemon={pokemon} />
-            </div>          
+            </div>
+            <PokemonEvo pokemon={pokemon} />  
         </div>
     )
 }

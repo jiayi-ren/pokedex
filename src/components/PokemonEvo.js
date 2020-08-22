@@ -27,6 +27,7 @@ const PokemonEvo = props => {
 
     return(
         <div className="pokemon-evolution">
+            <div>Evolutions</div>
             {isFetchingEvo && (
                 <>
                 <img src="https://media.giphy.com/media/GTuchZPRzR3s4/source.gif" alt="slowpoke"></img>
@@ -34,24 +35,20 @@ const PokemonEvo = props => {
                 </>
             )}
             <div className="pokemon-evolution-container">
-                {!isFetchingEvo && pokemonChain.map( id => {
+                {!isFetchingEvo && pokemonChain.map( (id, index) => {
                     const imgSrc = isException? Images[imgName]:`https://pokeres.bastionbot.org/images/pokemon/${id}.png`
-                    if (isException) {
-                        return (
-                            <div className="pokemon-img">
+                    const isLast = index === pokemonChain.length-1
+                    return (
+                        <div className="pokemon-evo-single" key={id}>
+                            <div className="pokemon-evo-img">
                                 <figure><img src={imgSrc} alt={`${pokemon.name}`}></img></figure>
                             </div>
-                        )
-                    }
-                    if (!isException) {
-                        return (
-                            <div className="pokemon-img">
-                                <figure><img src={imgSrc} alt={`${pokemon.name}`}></img></figure>
-                            </div>
-                        )
-                    }
-                    return (<></>)
+                            {!isLast &&<span>{`>>`}</span>}
+                            {isLast &&<span>&nbsp;&nbsp;</span>}
+                        </div>
+                    )
                 })}
+                
             </div>
             {isFetchingEvo && (
                 <>
