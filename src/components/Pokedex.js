@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchPokemons, fetchPokemon } from '../store/actions';
+import { fetchPokedexUrls, fetchPokedexPokemons } from '../store/actions';
 import { useHistory } from 'react-router';
 
 import PokedexCard from './PokedexCard';
@@ -9,14 +9,14 @@ import PokedexSearchBar from './PokedexSearchBar';
 const Pokedex = props =>{
 
     const {
-        isFetchingPokemons,
-        pokemons,   //individual pokemons url
-        pokemonsFetchError,
-        fetchPokemons,
-        isFetchingPokemon,
-        pokemon,    //array of pokemon info
-        pokemonFetchError,
-        fetchPokemon,
+        isFetchingPokedexUrls,
+        pokedexUrls,   //individual pokedexUrls url
+        pokedexUrlsFetchError,
+        fetchPokedexUrls,
+        isFetchingPokedexPokemons,
+        pokedexPokemons,    //array of pokemon info
+        pokedexPokemonsFetchError,
+        fetchPokedexPokemons,
     } = props
 
     const [pageNumber, setPageNumber] = useState(parseInt(1))
@@ -40,37 +40,28 @@ const Pokedex = props =>{
     },[history, limit, offset, pageNumber])
 
     useEffect(()=>{
-        // console.log("!!!!!!!!!!POKEMONSSS")
-        fetchPokemons(baseUrl)
-    },[baseUrl, fetchPokemons, pageNumber])
+        fetchPokedexUrls(baseUrl)
+    },[baseUrl, fetchPokedexUrls, pageNumber])
 
     useEffect(() => {
-        // console.log("!!!!!!!!!!POKEMON");
-        // if (pokemons && !search && !searchByPokemonID) {
-            fetchPokemon(pokemons);
-        // }
-        // if (search && searchByPokemonID) {
-            // fetchPokemon([`https://pokeapi.co/api/v2/pokemon/${searchByPokemonID}`])
-            // setSearch(true)
-        // }
-      },[pokemons, fetchPokemon]);
+        fetchPokedexPokemons(pokedexUrls);
+    },[pokedexUrls, fetchPokedexPokemons]);
 
     const previousPage = event =>{
         event.preventDefault()
-        console.log("clicked prev")
+        // console.log("clicked prev")
         if( pageNumber > 1){
-            console.log("not first Page")
+            // console.log("not first Page")
             const newPage = pageNumber - 1
             history.push(`/pokemon/page/${newPage}`)
-            
         }
     }
 
     const nextPage = event =>{
         event.preventDefault()
-        console.log("clicked next")
+        // console.log("clicked next")
         if(pageNumber < Math.ceil(808/20)){
-            console.log("not last Page")
+            // console.log("not last Page")
             const newPage = pageNumber + 1
             history.push(`/pokemon/page/${newPage}`)
         }
@@ -79,28 +70,30 @@ const Pokedex = props =>{
     return(
         <div className="pokedex">
             <PokedexSearchBar/>
-            {isFetchingPokemons && (
+            {isFetchingPokedexUrls && (
                 <>
                 <img src="https://media.giphy.com/media/GTuchZPRzR3s4/source.gif" alt="slowpoke"></img>
                 <p>Fetching Pokemon list...</p>
                 </>)}
-            {!isFetchingPokemons && pokemonsFetchError && <p>{pokemonsFetchError}</p>}
-            {isFetchingPokemon && (
+            {!isFetchingPokedexUrls && pokedexUrlsFetchError && <p>{pokedexUrlsFetchError}</p>}
+            {isFetchingPokedexPokemons && (
                 <>
                 <img src="https://media.giphy.com/media/GTuchZPRzR3s4/source.gif" alt="slowpoke"></img>
                 <p>Fetching Pokemons...</p>
                 </>
             )}
-            {!isFetchingPokemon && !pokemonFetchError &&
+            {!isFetchingPokedexPokemons && !pokedexPokemonsFetchError &&
                 (<>
                     {pageNumber !== 1 && <button className="arrow-left" onClick={previousPage}></button>}
                     {pageNumber !== Math.ceil(808/20) && <button className="arrow-right"onClick={nextPage}></button>}
                 </>)
             }
-            {!isFetchingPokemon && !pokemonFetchError &&
+            {!isFetchingPokedexPokemons && !pokedexPokemonsFetchError &&
                 (<>
                     <div className="card-container">
-                        {pokemon.map( (pokemon, index) =>{
+                        {console.log("!isFetchingPokedexPokemons ")}
+                        {pokedexPokemons.map( (pokemon, index) =>{
+                            console.log("inside map")
                             if(pokemon.id < 808){
                                 return ( <PokedexCard key={index} data={pokemon}/> )
                             }
@@ -116,16 +109,16 @@ const Pokedex = props =>{
 
 const mapStateToProps = state =>{
     return {
-        isFetchingPokemons: state.pokemons.isFetchingPokemons,
-        pokemons: state.pokemons.pokemons,
-        pokemonsFetchError: state.pokemons.pokemonsFetchError,
-        isFetchingPokemon: state.pokemon.isFetchingPokemon,
-        pokemon: state.pokemon.pokemon,
-        pokemonFetchError: state.pokemon.pokemonFetchError,
+        isFetchingPokedexUrls: state.pokedexUrls.isFetchingPokedexUrls,
+        pokedexUrls: state.pokedexUrls.pokedexUrls,
+        pokedexUrlsFetchError: state.pokedexUrls.pokedexUrlsFetchError,
+        isFetchingPokedexPokemons: state.pokedexPokemons.isFetchingPokedexPokemons,
+        pokedexPokemons: state.pokedexPokemons.pokedexPokemons,
+        pokedexPokemonsFetchError: state.pokedexPokemons.pokedexPokemonsFetchError,
     };
 }
 
 export default connect(
     mapStateToProps,
-    { fetchPokemons, fetchPokemon }
+    { fetchPokedexUrls, fetchPokedexPokemons }
 )(Pokedex);

@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import { pokemonReducer as pokemon } from './pokemonReducer';
-import { pokemonsReducer as pokemons } from './pokemonsReducer';
+import { pokedexPokemonsReducer as pokedexPokemons } from './pokedexPokemonsReducer';
+import { pokedexUrlsReducer as pokedexUrls } from './pokedexUrlsReducer';
 import { evolutionReducer as evolution } from './evolutionReducer';
+import { pokemonReducer as pokemon } from './pokemonReducer';
 
 export default combineReducers({
-    pokemon,
-    pokemons,
+    pokedexPokemons,
+    pokedexUrls,
     evolution,
+    pokemon,
 })

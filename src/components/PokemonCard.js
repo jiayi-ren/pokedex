@@ -6,8 +6,6 @@ const PokemonCard = props =>{
     
     const { pokemon } = props
 
-    console.log(pokemon)
-
     const [selectedOption, setSelectedOption] = useState(1)
     const [imgName, setImgName] = useState("")
 
@@ -50,7 +48,6 @@ const PokemonCard = props =>{
                     <h2 className="pokemon-name">{pokemon.name} &nbsp; #{String(pokemon.id).padStart(3, '0')}</h2>
                     <div className="pokemon-types">
                         {pokemon.types.map( (type,index) =>{
-                            // console.log(type)
                             return <span key={index} className={type.type.name+ " pokemon-type"} >{type.type.name}</span>
                         })}
                     </div>
@@ -59,7 +56,6 @@ const PokemonCard = props =>{
                     <div className="pokemon-stats">
                         <div className="pokemon-stats-bar">
                             {pokemon.stats.map( (stat, index) =>{
-                                // console.log(pokemon.types[0].type.name)
                                 const classList = `${pokemon.types[0].type.name} pokemon-stat-bar`
                                 const barStyle = {
                                     height: `${stat.base_stat+20}px`,
@@ -70,14 +66,13 @@ const PokemonCard = props =>{
                         </div>
                         <div className="pokemon-stats-tick">
                             {pokemon.stats.map( (stat, index) =>{
-                                // console.log(stat.stat.name)
                                 return <span key={index} className="pokemon-stat-tick">{stat.stat.name}</span>
                             })}
                         </div>
                     </div>
                 </div>
-                <PokemonEvo pokemon={pokemon} />
-            </div>          
+            </div>
+            <PokemonEvo pokemon={pokemon} />  
         </div>
     )
 }

@@ -6,7 +6,7 @@ import {
 
 const initialState = {
     isFetchingPokemon: false,
-    pokemon:[],
+    pokemon: null,
     pokemonFetchError:""
 }
 
@@ -21,7 +21,7 @@ export const pokemonReducer = ( state = initialState, action ) =>{
             return{
                 ...state,
                 isFetchingPokemon: false,
-                pokemon:  action.payload,
+                pokemon: action.payload,
                 pokemonFetchError:"",
             }
         case FETCH_POKEMON_FAILURE:

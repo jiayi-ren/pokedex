@@ -16,7 +16,6 @@ const PokedexCard = props =>{
     const imgLink = `/pokemon/name/${data.name}`
     const id = String(data.id).padStart(3, '0')
 
-  
     return(
         <div className="card">
             {isException &&(
@@ -31,7 +30,6 @@ const PokedexCard = props =>{
             </div>
             <div className="card-pokemon-type-container">
                 {data.types.map( (type,index) =>{
-                    // console.log(type)
                     return <span key={index} className={type.type.name+ " card-pokemon-type"} >{type.type.name}</span>
                 })}
             </div>

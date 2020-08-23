@@ -15,37 +15,30 @@ const Pokemon = props =>{
     } = props
 
     useEffect(() => {
-        // console.log("!!!!!!!!!!POKEMON");
         if (name) {
           fetchPokemon([`https://cors-anywhere.herokuapp.com/https://pokeapi.co/api/v2/pokemon/${name}`]);
         }
       }, [name, fetchPokemon]);
 
-    console.log(name)
     return(
         <div className="pokemon">
-            {isFetchingPokemon && (
+            {isFetchingPokemon && pokemon === null &&(
                 <>
                 <img src="https://media.giphy.com/media/GTuchZPRzR3s4/source.gif" alt="slowpoke"></img>
-                <p>Fetching Pokemons...</p>
+                <p>Fetching Pokemon...</p>
                 </>
             )}
-            {!isFetchingPokemon && !pokemonFetchError &&
-                (<>
-                    {pokemon.map( pokemon =>{
-                        return (
-                            <PokemonCard key={pokemon.id} pokemon={pokemon}/>
-                        )
-                    })
-                }   
-                </>)
-            }
+            {!isFetchingPokemon && pokemonFetchError === "" && pokemon !== null && pokemon.hasOwnProperty('id') && (
+                (
+                    <PokemonCard pokemon={pokemon}/>
+                )
+            )}
         </div>
     )
 }
 
 const mapStateToProps = state =>{
-    // console.log("Container ", state);
+
     return {
         isFetchingPokemon: state.pokemon.isFetchingPokemon,
         pokemon: state.pokemon.pokemon,

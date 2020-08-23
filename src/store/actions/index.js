@@ -1,46 +1,46 @@
 import axios from 'axios';
 
-export const FETCH_POKEMONS_START = "FETCH_POKEMONS_START";
-export const FETCH_POKEMONS_SUCCESS = "FETCH_POKEMONS_SUCCESS";
-export const FETCH_POKEMONS_FAILURE = "FETCH_POKEMONS_FAILURE";
+export const FETCH_POKEDEX_URLS_START = "FETCH_POKEDEX_URLS_START";
+export const FETCH_POKEDEX_URLS_SUCCESS = "FETCH_POKEDEX_URLS_SUCCESS";
+export const FETCH_POKEDEX_URLS_FAILURE = "FETCH_POKEDEX_URLS_FAILURE";
 
-export const fetchPokemons = url =>{
+export const fetchPokedexUrls = url =>{
 
     // console.log("FETCH POKEMON LIST")
 
     return dispatch => {
-        dispatch({ type: FETCH_POKEMONS_START })
+        dispatch({ type: FETCH_POKEDEX_URLS_START })
 
         axios
             .get(url)
             .then(res =>{
                 // console.log(res.data)
                 // console.log("FETCH CONTAINER SUCCESS")
-                dispatch({type: FETCH_POKEMONS_SUCCESS, payload: res.data.results})
+                dispatch({type: FETCH_POKEDEX_URLS_SUCCESS, payload: res.data.results})
             })
             .catch(err =>{
                 console.log(err)
-                dispatch({type: FETCH_POKEMONS_FAILURE})
+                dispatch({type: FETCH_POKEDEX_URLS_FAILURE})
             })
     }
 
 };
 
-export const FETCH_POKEMON_START = "FETCH_POKEMON_START";
-export const FETCH_POKEMON_SUCCESS = "FETCH_POKEMON_SUCCESS";
-export const FETCH_POKEMON_FAILURE = "FETCH_POKEMON_FAILURE";
+export const FETCH_POKEDEX_POKEMONS_START = "FETCH_POKEDEX_POKEMONS_START";
+export const FETCH_POKEDEX_POKEMONS_SUCCESS = "FETCH_POKEDEX_POKEMONS_SUCCESS";
+export const FETCH_POKEDEX_POKEMONS_FAILURE = "FETCH_POKEDEX_POKEMONS_FAILURE";
 
-export const fetchPokemon = urls =>{
+export const fetchPokedexPokemons = urls =>{
 
-    console.log("FETCH POKEMON")
+    // console.log("FETCH POKEMON")
 
     const requests = urls.map( url =>{
         return axios.get(url)
     })
 
-    console.log(requests)
+    // console.log(requests)
     return dispatch => {
-        dispatch({ type: FETCH_POKEMON_START })
+        dispatch({ type: FETCH_POKEDEX_POKEMONS_START })
         axios
             .all(requests)
             .then(axios.spread((...responses) =>{
@@ -49,11 +49,11 @@ export const fetchPokemon = urls =>{
                 })
                 // console.log("FETCH CARD SUCCESS")
                 // console.log(data)
-                dispatch({type: FETCH_POKEMON_SUCCESS, payload: data})
+                dispatch({type: FETCH_POKEDEX_POKEMONS_SUCCESS, payload: data})
             }))
             .catch(err =>{
                 console.log(err)
-                dispatch({type: FETCH_POKEMON_FAILURE})
+                dispatch({type: FETCH_POKEDEX_POKEMONS_FAILURE})
             })
     }
 
@@ -65,9 +65,7 @@ export const FETCH_EVOLUTION_FAILURE = "FETCH_EVOLUTION_FAILURE"
 
 export const fetchEvolution = url =>{
     console.log("FETCH EVO")
-
-
-
+    
     return dispatch => {
         dispatch({type: FETCH_EVOLUTION_START})
         axios
@@ -98,3 +96,26 @@ export const fetchEvolution = url =>{
             })
     }
 }
+
+export const FETCH_POKEMON_START = "FETCH_POKEMON_START";
+export const FETCH_POKEMON_SUCCESS = "FETCH_POKEMON_SUCCESS";
+export const FETCH_POKEMON_FAILURE = "FETCH_POKEMON_FAILURE";
+
+export const fetchPokemon = url =>{
+    console.log("FETCH POKEMON")
+    return dispatch => {
+        dispatch({ type: FETCH_POKEMON_START })
+
+        axios
+            .get(url)
+            .then(res =>{
+                // console.log(res.data)
+                dispatch({type: FETCH_POKEMON_SUCCESS, payload: res.data})
+            })
+            .catch(err =>{
+                console.log(err)
+                dispatch({type: FETCH_POKEMON_FAILURE})
+            })
+    }
+
+};
