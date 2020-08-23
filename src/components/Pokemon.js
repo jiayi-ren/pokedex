@@ -22,13 +22,13 @@ const Pokemon = props =>{
 
     return(
         <div className="pokemon">
-            {isFetchingPokemon && (
+            {isFetchingPokemon && pokemon === null &&(
                 <>
                 <img src="https://media.giphy.com/media/GTuchZPRzR3s4/source.gif" alt="slowpoke"></img>
                 <p>Fetching Pokemon...</p>
                 </>
             )}
-            {!isFetchingPokemon && !pokemonFetchError && pokemon !== null && (
+            {!isFetchingPokemon && pokemonFetchError === "" && pokemon !== null && pokemon.hasOwnProperty('id') && (
                 (
                     <PokemonCard pokemon={pokemon}/>
                 )

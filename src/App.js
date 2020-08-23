@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import Pokedex from './components/Pokedex';
 import PokedexSearch from './components/PokedexSearch';
@@ -20,7 +20,7 @@ function App() {
       <Route exact path="/pokemon/name/:name" component={Pokemon}></Route>
       <Route exact path="/pokemon/page/:page" component={Pokedex}></Route>
       <Route exact path="/pokemon/search" component={PokedexSearch}></Route>
-      <Route exact path="/" component={Pokedex}></Route>
+      <Route exact path="/"><Redirect to="/pokemon/page/1" component={Pokedex}/></Route>
       <Footer />
     </div>
   );
