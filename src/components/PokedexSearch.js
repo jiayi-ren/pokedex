@@ -36,16 +36,10 @@ const PokedexSearch = props =>{
                 <p>Searching Pokemon...</p>
                 </>
             )}
-            {!isFetchingPokemon && !pokemonFetchError &&
+            {!isFetchingPokemon && !pokemonFetchError && pokemon.id < 808 && 
                 (<>
                     <div className="card-container">
-                        {pokemon.map( (pokemon, index) =>{
-                            if(pokemon.id < 808){
-                                return ( <PokedexCard key={index} data={pokemon}/> )
-                            }
-                            return null
-                        })
-                    }   
+                        <PokedexCard data={pokemon} />
                     </div>
                 </>)
             }
