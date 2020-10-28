@@ -17,18 +17,12 @@
 
 .pokemon-img {
     width: 50%;
-    // display: flex;
-    // justify-content: center;
+    display: flex;
+    justify-content: center;
 
-    figure {
-        // margin: auto;
-        display: flex;
-        justify-content: center;
-        
-        img{ 
-            width: 300px;
-            margin: 0 auto;
-        }
+    img{ 
+        width: 300px;
+        margin: auto;
     }
 }
 
@@ -114,7 +108,7 @@
 .pokemon-evo-img {
     width: 70%;
 
-    figure img {
+    img {
         max-width: 100%;
     }
 }

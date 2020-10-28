@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 
 const PokedexSearchBar = props =>{
 
     const history = useHistory()
+    const match = useRouteMatch("/page/:page");
+
     const [searchByPokemonID, setSearchByPokemonID] = useState("")
 
     const handleChangeSearch = event =>{
@@ -13,24 +15,32 @@ const PokedexSearchBar = props =>{
 
     const handleSubmitSearch = event =>{
         event.preventDefault()
+
         if (searchByPokemonID !== ""){
-            history.push(`/pokemon/search?search=${searchByPokemonID}`)
+            history.push(`/pokemon?search=${searchByPokemonID}`)
         }else{
-            history.push("/pokemon/page/1")
+            if (match) {
+                history.push(`/page/${match.params.page}`)
+            }else {
+                history.goBack()
+            }
         }
     }
 
     return(
-        <div>
-            <form onSubmit={handleSubmitSearch}>
+        <div className="search-bar">
+            <form onSubmit={handleSubmitSearch} className="search-box">
                 <input 
                     name="searchPokemon"
                     value={searchByPokemonID}
                     type="text"
-                    placeholder="Search by Poke Number"
+                    placeholder="Search by Pokemon Number or Name"
                     onChange={handleChangeSearch}
+                    className="search-input"
                 />
-                <button>Search</button>
+                <button
+                    className="search-button"
+                ></button>
             </form>
         </div>
     )

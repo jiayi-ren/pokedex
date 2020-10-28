@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchPokedexUrls, fetchPokedexPokemons } from '../store/actions';
-import { useHistory } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 
 import PokedexCard from './PokedexCard';
 import PokedexSearchBar from './PokedexSearchBar';
@@ -19,9 +19,10 @@ const Pokedex = props =>{
         fetchPokedexPokemons,
     } = props
 
-    const [pageNumber, setPageNumber] = useState(parseInt(1))
+    const match = useRouteMatch("/page/:page");
+    const history = useHistory();
 
-    const history = useHistory()
+    const [pageNumber, setPageNumber] = useState(parseInt(match.params.page))
     
     const numberOfPokemon = 20
     const [offset, setOffset] = useState(numberOfPokemon * (pageNumber-1))
@@ -31,11 +32,11 @@ const Pokedex = props =>{
 
     useEffect(()=>{
         return history.listen((location)=>{
-            const newPage = parseInt(location.pathname[location.pathname.length-1])
-            setPageNumber(newPage)
-            setOffset(numberOfPokemon * (newPage-1))
+            const newPageNumber = parseInt(location.pathname.slice(6))
+            setPageNumber(newPageNumber)
+            setOffset(numberOfPokemon * (newPageNumber-1))
             setLimit(numberOfPokemon)
-            setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${numberOfPokemon * (newPage-1)}&limit=${numberOfPokemon}`)
+            setBaseUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${numberOfPokemon * (newPageNumber-1)}&limit=${numberOfPokemon}`)
         })
     },[history, limit, offset, pageNumber])
 
@@ -49,21 +50,15 @@ const Pokedex = props =>{
 
     const previousPage = event =>{
         event.preventDefault()
-        // console.log("clicked prev")
         if( pageNumber > 1){
-            // console.log("not first Page")
-            const newPage = pageNumber - 1
-            history.push(`/pokemon/page/${newPage}`)
+            history.push(`/page/${pageNumber - 1}`)
         }
     }
 
     const nextPage = event =>{
         event.preventDefault()
-        // console.log("clicked next")
         if(pageNumber < Math.ceil(808/20)){
-            // console.log("not last Page")
-            const newPage = pageNumber + 1
-            history.push(`/pokemon/page/${newPage}`)
+            history.push(`/page/${pageNumber + 1}`)
         }
     }
 
@@ -91,9 +86,7 @@ const Pokedex = props =>{
             {!isFetchingPokedexPokemons && !pokedexPokemonsFetchError &&
                 (<>
                     <div className="card-container">
-                        {console.log("!isFetchingPokedexPokemons ")}
                         {pokedexPokemons.map( (pokemon, index) =>{
-                            console.log("inside map")
                             if(pokemon.id < 808){
                                 return ( <PokedexCard key={index} data={pokemon}/> )
                             }

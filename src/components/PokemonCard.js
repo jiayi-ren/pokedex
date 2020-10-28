@@ -38,10 +38,10 @@ const PokemonCard = props =>{
             <div className="pokemon-info">
                 <div className="pokemon-img">
                     {isException && (
-                        <figure><img src={imgSrc} alt={`${pokemon.name}`}></img></figure>
+                        <img src={imgSrc} alt={`${pokemon.name}`}></img>
                     )}
                     {!isException && (
-                        <figure><img src={imgSrc} alt={`${pokemon.name}`}></img></figure>
+                        <img src={imgSrc} alt={`${pokemon.name}`}></img>
                     )}
                 </div>
                 <div className="pokemon-basic-info">
