@@ -53,7 +53,7 @@ const Pokedex = props =>{
         if( pageNumber > 1){
             // console.log("not first Page")
             const newPage = pageNumber - 1
-            history.push(`/pokemon/page/${newPage}`)
+            history.push(`/page/${newPage}`)
         }
     }
 
@@ -63,7 +63,7 @@ const Pokedex = props =>{
         if(pageNumber < Math.ceil(808/20)){
             // console.log("not last Page")
             const newPage = pageNumber + 1
-            history.push(`/pokemon/page/${newPage}`)
+            history.push(`/page/${newPage}`)
         }
     }
 
