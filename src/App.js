@@ -18,9 +18,9 @@ function App() {
       </div>
       {/* <Navigation /> */}
       <Route exact path="/pokemon/name/:name" component={Pokemon}></Route>
-      <Route exact path="/pokemon/page/:page" component={Pokedex}></Route>
-      <Route exact path="/pokemon/search" component={PokedexSearch}></Route>
-      <Route exact path="/"><Redirect to="/pokemon/page/1" component={Pokedex}/></Route>
+      <Route exact path="/page/:page" component={Pokedex}></Route>
+      <Route exact path="/pokemon" component={PokedexSearch}></Route>
+      <Route exact path="/"><Redirect to="/page/1" component={Pokedex}/></Route>
       <Footer />
     </div>
   );

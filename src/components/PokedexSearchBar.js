@@ -14,9 +14,9 @@ const PokedexSearchBar = props =>{
     const handleSubmitSearch = event =>{
         event.preventDefault()
         if (searchByPokemonID !== ""){
-            history.push(`/pokemon/search?search=${searchByPokemonID}`)
+            history.push(`/pokemon?search=${searchByPokemonID}`)
         }else{
-            history.push("/pokemon/page/1")
+            history.push("/page/1")
         }
     }
 
@@ -27,7 +27,7 @@ const PokedexSearchBar = props =>{
                     name="searchPokemon"
                     value={searchByPokemonID}
                     type="text"
-                    placeholder="Search by Poke Number"
+                    placeholder="Search by Pokemon Number or Name"
                     onChange={handleChangeSearch}
                 />
                 <button>Search</button>
