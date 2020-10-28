@@ -28,7 +28,7 @@ const PokedexSearch = props =>{
     },[history, fetchPokemon])
 
     return(
-        <div>
+        <div className="pokedex">
             <PokedexSearchBar/>
             {isFetchingPokemon && (
                 <>

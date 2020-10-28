@@ -21,16 +21,19 @@ const PokedexSearchBar = props =>{
     }
 
     return(
-        <div>
-            <form onSubmit={handleSubmitSearch}>
+        <div className="search-bar">
+            <form onSubmit={handleSubmitSearch} className="search-box">
                 <input 
                     name="searchPokemon"
                     value={searchByPokemonID}
                     type="text"
                     placeholder="Search by Pokemon Number or Name"
                     onChange={handleChangeSearch}
+                    className="search-input"
                 />
-                <button>Search</button>
+                <button
+                    className="search-button"
+                ></button>
             </form>
         </div>
     )
