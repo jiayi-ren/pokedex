@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Images } from '../images/Images' 
+import { Images } from '../images/Images';
 
 const PokedexCard = props =>{
 
@@ -19,10 +19,10 @@ const PokedexCard = props =>{
     return(
         <div className="card">
             {isException &&(
-                <figure><img className="card-pokemon-img" src={imgSrc} alt={imgAlt} onClick={()=>{push(imgLink)}}></img></figure>
+                <img className="card-pokemon-img" src={imgSrc} alt={imgAlt} onClick={()=>{push(imgLink)}}></img>
             )}
             {!isException &&(
-                <figure><img className="card-pokemon-img" src={imgSrc} alt={imgAlt} onClick={()=>{push(imgLink)}}></img></figure>
+                <img className="card-pokemon-img" src={imgSrc} alt={imgAlt} onClick={()=>{push(imgLink)}}></img>
             )}
             <div className="card-pokemon-info">
                 <p>#{id}</p>
