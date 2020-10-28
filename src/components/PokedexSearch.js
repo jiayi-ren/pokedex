@@ -6,56 +6,65 @@ import { fetchPokemon } from '../store/actions';
 import PokedexCard from '../components/PokedexCard';
 import PokedexSearchBar from './PokedexSearchBar';
 
-const PokedexSearch = props =>{
-
-    const { 
+const PokedexSearch = props => {
+    const {
         isFetchingPokemon,
         pokemon,
         pokemonFetchError,
         fetchPokemon,
-    } = props
+    } = props;
 
-    const history = useHistory()
-    
-    useEffect(()=>{
-        fetchPokemon([`https://pokeapi.co/api/v2/pokemon/${history.location.search.slice(8, history.location.search.length)}`])
-    },[fetchPokemon, history.location.search])
+    const history = useHistory();
 
-    useEffect(()=>{
-        return history.listen((location)=>{
-            fetchPokemon([`https://pokeapi.co/api/v2/pokemon/${location.search.slice(8, location.search.length)}`])
-        })
-    },[history, fetchPokemon])
+    useEffect(() => {
+        fetchPokemon([
+            `https://pokeapi.co/api/v2/pokemon/${history.location.search.slice(
+                8,
+                history.location.search.length,
+            )}`,
+        ]);
+    }, [fetchPokemon, history.location.search]);
 
-    return(
+    useEffect(() => {
+        return history.listen(location => {
+            fetchPokemon([
+                `https://pokeapi.co/api/v2/pokemon/${location.search.slice(
+                    8,
+                    location.search.length,
+                )}`,
+            ]);
+        });
+    }, [history, fetchPokemon]);
+
+    return (
         <div className="pokedex">
-            <PokedexSearchBar/>
+            <PokedexSearchBar />
             {isFetchingPokemon && (
                 <>
-                <img src="https://media.giphy.com/media/GTuchZPRzR3s4/source.gif" alt="slowpoke"></img>
-                <p>Searching Pokemon...</p>
+                    <img
+                        src="https://media.giphy.com/media/GTuchZPRzR3s4/source.gif"
+                        alt="slowpoke"
+                    ></img>
+                    <p>Searching Pokemon...</p>
                 </>
             )}
-            {!isFetchingPokemon && !pokemonFetchError && pokemon !== null && 
-                (<>
+            {!isFetchingPokemon && !pokemonFetchError && pokemon !== null && (
+                <>
                     <div className="card-container">
                         <PokedexCard data={pokemon} />
                     </div>
-                </>)
-            }
+                </>
+            )}
         </div>
-    )
-}
+    );
+};
 
-const mapStateToProps = state =>{
+const mapStateToProps = state => {
     return {
         isFetchingPokemon: state.pokemon.isFetchingPokemon,
         pokemon: state.pokemon.pokemon,
         pokemonFetchError: state.pokemon.pokemonFetchError,
     };
-}
+};
 
-export default connect(
-    mapStateToProps,
-    { fetchPokemon }
-)(PokedexSearch);
+export default connect(mapStateToProps, { fetchPokemon })(PokedexSearch);

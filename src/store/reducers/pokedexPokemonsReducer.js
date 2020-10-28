@@ -2,35 +2,35 @@ import {
     FETCH_POKEDEX_POKEMONS_START,
     FETCH_POKEDEX_POKEMONS_SUCCESS,
     FETCH_POKEDEX_POKEMONS_FAILURE,
-} from '../actions'
+} from '../actions';
 
 const initialState = {
     isFetchingPokedexPokemon: false,
-    pokedexPokemons:[],
-    pokedexPokemonsFetchError:""
-}
+    pokedexPokemons: [],
+    pokedexPokemonsFetchError: '',
+};
 
-export const pokedexPokemonsReducer = ( state = initialState, action ) =>{
-    switch(action.type){
+export const pokedexPokemonsReducer = (state = initialState, action) => {
+    switch (action.type) {
         case FETCH_POKEDEX_POKEMONS_START:
-            return{
+            return {
                 ...state,
                 isFetchingPokedexPokemon: true,
-            }
+            };
         case FETCH_POKEDEX_POKEMONS_SUCCESS:
-            return{
+            return {
                 ...state,
                 isFetchingPokedexPokemon: false,
-                pokedexPokemons:  action.payload,
-                pokedexPokemonsFetchError:"",
-            }
+                pokedexPokemons: action.payload,
+                pokedexPokemonsFetchError: '',
+            };
         case FETCH_POKEDEX_POKEMONS_FAILURE:
-            return{
+            return {
                 ...state,
                 isFetchingPokedexPokemon: false,
-                pokedexPokemonsFetchError:"Unable to fetch Pokedex Pokemon",
-            }
+                pokedexPokemonsFetchError: 'Unable to fetch Pokedex Pokemon',
+            };
         default:
             return state;
     }
-}
+};

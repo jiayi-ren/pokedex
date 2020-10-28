@@ -2,35 +2,35 @@ import {
     FETCH_POKEMON_START,
     FETCH_POKEMON_SUCCESS,
     FETCH_POKEMON_FAILURE,
-} from '../actions'
+} from '../actions';
 
 const initialState = {
     isFetchingPokemon: false,
     pokemon: null,
-    pokemonFetchError:""
-}
+    pokemonFetchError: '',
+};
 
-export const pokemonReducer = ( state = initialState, action ) =>{
-    switch(action.type){
+export const pokemonReducer = (state = initialState, action) => {
+    switch (action.type) {
         case FETCH_POKEMON_START:
-            return{
+            return {
                 ...state,
                 isFetchingPokemon: true,
-            }
+            };
         case FETCH_POKEMON_SUCCESS:
-            return{
+            return {
                 ...state,
                 isFetchingPokemon: false,
                 pokemon: action.payload,
-                pokemonFetchError:"",
-            }
+                pokemonFetchError: '',
+            };
         case FETCH_POKEMON_FAILURE:
-            return{
+            return {
                 ...state,
                 isFetchingPokemon: false,
-                pokemonFetchError:"Unable to fetch Pokemon",
-            }
+                pokemonFetchError: 'Unable to fetch Pokemon',
+            };
         default:
             return state;
     }
-}
+};

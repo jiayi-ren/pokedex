@@ -1,36 +1,35 @@
 import React, { useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 
-const PokedexSearchBar = props =>{
+const PokedexSearchBar = props => {
+    const history = useHistory();
+    const match = useRouteMatch('/page/:page');
 
-    const history = useHistory()
-    const match = useRouteMatch("/page/:page");
+    const [searchByPokemonID, setSearchByPokemonID] = useState('');
 
-    const [searchByPokemonID, setSearchByPokemonID] = useState("")
+    const handleChangeSearch = event => {
+        const value = event.target.value ? event.target.value : '';
+        setSearchByPokemonID(value);
+    };
 
-    const handleChangeSearch = event =>{
-        const value = event.target.value? event.target.value:""
-        setSearchByPokemonID(value)
-    }
+    const handleSubmitSearch = event => {
+        event.preventDefault();
 
-    const handleSubmitSearch = event =>{
-        event.preventDefault()
-
-        if (searchByPokemonID !== ""){
-            history.push(`/pokemon?search=${searchByPokemonID}`)
-        }else{
+        if (searchByPokemonID !== '') {
+            history.push(`/pokemon?search=${searchByPokemonID}`);
+        } else {
             if (match) {
-                history.push(`/page/${match.params.page}`)
-            }else {
-                history.goBack()
+                history.push(`/page/${match.params.page}`);
+            } else {
+                history.goBack();
             }
         }
-    }
+    };
 
-    return(
+    return (
         <div className="search-bar">
             <form onSubmit={handleSubmitSearch} className="search-box">
-                <input 
+                <input
                     name="searchPokemon"
                     value={searchByPokemonID}
                     type="text"
@@ -38,12 +37,10 @@ const PokedexSearchBar = props =>{
                     onChange={handleChangeSearch}
                     className="search-input"
                 />
-                <button
-                    className="search-button"
-                ></button>
+                <button className="search-button"></button>
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default PokedexSearchBar;
