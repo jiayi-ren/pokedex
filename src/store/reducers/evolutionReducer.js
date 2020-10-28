@@ -2,35 +2,35 @@ import {
     FETCH_EVOLUTION_START,
     FETCH_EVOLUTION_SUCCESS,
     FETCH_EVOLUTION_FAILURE,
-} from '../actions'
+} from '../actions';
 
 const initialState = {
     isFetchingEvo: false,
-    pokemonChain:[],
-    evoFetchError:""
-}
+    pokemonChain: [],
+    evoFetchError: '',
+};
 
-export const evolutionReducer = ( state = initialState, action) => {
-    switch(action.type){
+export const evolutionReducer = (state = initialState, action) => {
+    switch (action.type) {
         case FETCH_EVOLUTION_START:
-            return{
+            return {
                 ...state,
                 isFetchingEvo: true,
-            }
+            };
         case FETCH_EVOLUTION_SUCCESS:
-            return{
+            return {
                 ...state,
                 isFetchingEvo: false,
                 pokemonChain: action.payload,
-                evoFetchError:"",
-            }
+                evoFetchError: '',
+            };
         case FETCH_EVOLUTION_FAILURE:
-            return{
+            return {
                 ...state,
                 isFetchingEvo: false,
-                evoFetchError:"Unable to fetch Pokemon Evolution",
-            }
+                evoFetchError: 'Unable to fetch Pokemon Evolution',
+            };
         default:
             return state;
     }
-}
+};
