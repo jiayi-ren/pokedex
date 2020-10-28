@@ -29,7 +29,7 @@ const PokedexCard = props =>{
                 <h3>{data.name}</h3>
             </div>
             <div className="card-pokemon-type-container">
-                {data.types.map( (type,index) =>{
+                {data && data.types.map( (type,index) =>{
                     return <span key={index} className={type.type.name+ " card-pokemon-type"} >{type.type.name}</span>
                 })}
             </div>
