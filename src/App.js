@@ -16,7 +16,6 @@ function App() {
         <a href="/"><h1>P<div className="nav-pokeball"></div>kédex</h1></a>
         <div className="nav-anime"></div> {/*title pokemon gif*/}
       </div>
-      {/* <Navigation /> */}
       <Route exact path="/pokemon/name/:name" component={Pokemon}></Route>
       <Route exact path="/page/:page" component={Pokedex}></Route>
       <Route exact path="/pokemon" component={PokedexSearch}></Route>
