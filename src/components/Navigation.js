@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 
 const Navigation = props => {
     let location = useLocation();
-    // console.log(location)
 
     window.onscroll = function () {
         scrollFunction();
@@ -46,12 +45,9 @@ const Navigation = props => {
     };
 
     function scrollFunction() {
-        // console.log(window.innerWidth)
-
         if (location.pathname !== '/') {
             if (window.innerWidth >= 1100) {
                 const scroll = document.documentElement.scrollTop;
-                // console.log(scroll)
                 if (scroll > 100) {
                     ScrollNav();
                 } else {

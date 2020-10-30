@@ -5,16 +5,12 @@ export const FETCH_POKEDEX_URLS_SUCCESS = 'FETCH_POKEDEX_URLS_SUCCESS';
 export const FETCH_POKEDEX_URLS_FAILURE = 'FETCH_POKEDEX_URLS_FAILURE';
 
 export const fetchPokedexUrls = url => {
-    // console.log("FETCH POKEMON LIST")
-
     return dispatch => {
         dispatch({ type: FETCH_POKEDEX_URLS_START });
 
         axios
             .get(url)
             .then(res => {
-                // console.log(res.data)
-                // console.log("FETCH CONTAINER SUCCESS")
                 dispatch({
                     type: FETCH_POKEDEX_URLS_SUCCESS,
                     payload: res.data.results,
@@ -32,13 +28,10 @@ export const FETCH_POKEDEX_POKEMONS_SUCCESS = 'FETCH_POKEDEX_POKEMONS_SUCCESS';
 export const FETCH_POKEDEX_POKEMONS_FAILURE = 'FETCH_POKEDEX_POKEMONS_FAILURE';
 
 export const fetchPokedexPokemons = urls => {
-    // console.log("FETCH POKEMON")
-
     const requests = urls.map(url => {
         return axios.get(url);
     });
 
-    // console.log(requests)
     return dispatch => {
         dispatch({ type: FETCH_POKEDEX_POKEMONS_START });
         axios
@@ -48,8 +41,6 @@ export const fetchPokedexPokemons = urls => {
                     const data = responses.map(response => {
                         return response.data;
                     });
-                    // console.log("FETCH CARD SUCCESS")
-                    // console.log(data)
                     dispatch({
                         type: FETCH_POKEDEX_POKEMONS_SUCCESS,
                         payload: data,
@@ -80,9 +71,8 @@ export const fetchEvolution = url => {
                     .then(res => {
                         let pokemonIdChain = [];
                         let evolve = [res.data.chain];
-                        // console.log(evolve.evolves_to)
+
                         while (evolve.length !== 0) {
-                            // console.log(evolve.species)
                             let id = evolve[0].species.url.split('/');
                             pokemonIdChain.push(id[id.length - 2]);
                             evolve = evolve[0].evolves_to
@@ -118,7 +108,6 @@ export const fetchPokemon = url => {
         axios
             .get(url)
             .then(res => {
-                // console.log(res.data)
                 dispatch({ type: FETCH_POKEMON_SUCCESS, payload: res.data });
             })
             .catch(err => {

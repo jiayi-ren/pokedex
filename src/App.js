@@ -3,8 +3,6 @@ import { Route, Redirect } from 'react-router-dom';
 
 import Pokedex from './components/Pokedex';
 import PokedexSearch from './components/PokedexSearch';
-// import Home from './components/Home';
-// import Navigation from './components/Navigation';
 import Pokemon from './components/Pokemon';
 import Footer from './components/Footer';
 import './App.css';
