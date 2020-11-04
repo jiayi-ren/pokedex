@@ -62,15 +62,12 @@ const PokemonEvo = props => {
                         return (
                             <div className="pokemon-evo-single" key={id}>
                                 <div className="pokemon-evo-img">
-                                    <figure>
-                                        <img
-                                            src={imgSrc}
-                                            alt={`${pokemon.name}`}
-                                        ></img>
-                                    </figure>
+                                    <img
+                                        src={imgSrc}
+                                        alt={`${pokemon.name}`}
+                                    ></img>
                                 </div>
                                 {!isLast && <span>{`>>`}</span>}
-                                {isLast && <span>&nbsp;&nbsp;</span>}
                             </div>
                         );
                     })}
