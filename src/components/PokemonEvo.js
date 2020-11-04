@@ -37,7 +37,6 @@ const PokemonEvo = props => {
     const isException = exceptionIdForms.includes(pokemon.id);
 
     useEffect(() => {
-        console.log(pokemon.species.url);
         if (pokemon.species.url) {
             fetchEvolution(pokemon.species.url);
         }

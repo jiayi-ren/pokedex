@@ -59,8 +59,6 @@ export const FETCH_EVOLUTION_SUCCESS = 'FETCH_EVOLUTION_SUCCESS';
 export const FETCH_EVOLUTION_FAILURE = 'FETCH_EVOLUTION_FAILURE';
 
 export const fetchEvolution = url => {
-    console.log('FETCH EVO');
-
     return dispatch => {
         dispatch({ type: FETCH_EVOLUTION_START });
         axios
@@ -101,7 +99,6 @@ export const FETCH_POKEMON_SUCCESS = 'FETCH_POKEMON_SUCCESS';
 export const FETCH_POKEMON_FAILURE = 'FETCH_POKEMON_FAILURE';
 
 export const fetchPokemon = url => {
-    console.log('FETCH POKEMON');
     return dispatch => {
         dispatch({ type: FETCH_POKEMON_START });
 
