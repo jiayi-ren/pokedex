@@ -5,6 +5,7 @@ import { useHistory, useRouteMatch } from 'react-router';
 
 import PokedexCard from './PokedexCard';
 import PokedexSearchBar from './PokedexSearchBar';
+import axios from 'axios';
 
 const Pokedex = props => {
     const {
@@ -30,6 +31,21 @@ const Pokedex = props => {
     const [baseUrl, setBaseUrl] = useState(
         `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`,
     );
+
+    // cache all pokemon names for autosuggest
+    useEffect(() => {
+        axios
+            .get('https://pokeapi.co/api/v2/pokemon?limit=808')
+            .then(res => {
+                window.sessionStorage.setItem(
+                    '__a',
+                    JSON.stringify(res.data.results),
+                );
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, []);
 
     useEffect(() => {
         return history.listen(location => {
