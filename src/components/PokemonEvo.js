@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchEvolution } from '../store/actions';
 import { Images } from '../images/Images';
@@ -12,7 +12,6 @@ const PokemonEvo = props => {
         fetchEvolution,
     } = props;
 
-    const [imgName] = useState('');
     const exceptionIdForms = [
         412,
         413,
@@ -34,7 +33,6 @@ const PokemonEvo = props => {
         774,
         778,
     ];
-    const isException = exceptionIdForms.includes(pokemon.id);
 
     useEffect(() => {
         if (pokemon.species.url) {
@@ -57,8 +55,8 @@ const PokemonEvo = props => {
             <div className="pokemon-evolution-container">
                 {!isFetchingEvo &&
                     pokemonChain.map((id, index) => {
-                        const imgSrc = isException
-                            ? Images[imgName]
+                        const imgSrc = exceptionIdForms.includes(parseInt(id))
+                            ? Images[`image${id}_f1`]
                             : `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
                         const isLast = index === pokemonChain.length - 1;
                         return (
